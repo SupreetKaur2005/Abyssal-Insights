@@ -1,0 +1,135 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  color: #222;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  background: #003049;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ffb703;
+}
+
+/* Hero Section */
+.hero {
+  background: url("images/ocean-banner.jpg") no-repeat center center/cover;
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-block;
+  background: #ffb703;
+  color: #003049;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #f77f00;
+}
+
+/* Species Section */
+.species {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.species h2 {
+  margin-bottom: 30px;
+}
+
+.species-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.species-card {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.species-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.species-card h3 {
+  margin-bottom: 10px;
+}
+
+/* Info Section */
+.info {
+  background: #e9ecef;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.info h2 {
+  margin-bottom: 15px;
+}
+
+/* Footer */
+.footer {
+  background: #003049;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer a {
+  color: #ffb703;
+  text-decoration: none;
+  margin: 0 5px;
+}

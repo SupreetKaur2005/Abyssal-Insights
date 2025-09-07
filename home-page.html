@@ -1,75 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DeepSea DNA Explorer</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- Navbar -->
   <header class="navbar">
-    <div class="logo">DeepSea DNA Explorer</div>
+    <div class="logo">🌊 DeepSea DNA</div>
     <nav>
       <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <!-- <li><a href="#">Species</a></li> -->
-        <li><a href="#">Upload</a></li>
-        <!-- <li><a href="#">About</a></li> -->
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Sign In</a></li>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#species">Species</a></li>
+        <li><a href="#upload">Upload</a></li>
+        <!-- <li><a href="#info">About</a></li> -->
+        <!-- <li><a href="#contact">Contact</a></li> -->
+        <li><a href="#signin" class="btn small">Sign In</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero Banner -->
-  <section class="hero">
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <video autoplay muted loop playsinline class="hero-bg">
+      <source src="videos/ocean.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Discover Biodiversity Hidden in Your Samples</h1>
       <p>Upload your eDNA data and let science reveal the ocean’s secrets.</p>
-      <a href="#" class="btn">Upload Your Data</a>
+      <a href="#upload" class="btn">Upload Your Data</a>
     </div>
   </section>
 
-  <!-- Species Section -->
-  <section class="species">
-    <h2>Explore Ocean Life</h2>
-    <div class="species-grid">
-      <div class="species-card">
-        <img src="images/coral.jpg" alt="Deep Sea Corals">
-        <h3>Deep Sea Corals</h3>
-        <a href="corals.html" class="btn">Learn More</a>
-      </div>
-      <div class="species-card">
-        <img src="images/fish.jpg" alt="Deep Sea Fish">
-        <h3>Deep Sea Fish</h3>
-        <a href="fish.html" class="btn">Learn More</a>
-      </div>
-      <div class="species-card">
-        <img src="images/crustacean.jpg" alt="Crustaceans">
-        <h3>Crustaceans</h3>
-        <a href="crustaceans.html" class="btn">Learn More</a>
-      </div>
-      <div class="species-card">
-        <img src="images/mollusk.jpg" alt="Mollusks">
-        <h3>Mollusks</h3>
-        <a href="mollusks.html" class="btn">Learn More</a>
-      </div>
-      <div class="species-card">
-        <img src="images/plankton.jpg" alt="Plankton">
-        <h3>Plankton</h3>
-        <a href="plankton.html" class="btn">Learn More</a>
-      </div>
-      <div class="species-card">
-        <img src="images/echinoderm.jpg" alt="Echinoderms">
-        <h3>Echinoderms</h3>
-        <a href="echinoderms.html" class="btn">Learn More</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Info Section -->
-  <section class="info">
+    <!-- Info Section -->
+  <section class="info" id="info">
     <h2>What is eDNA?</h2>
     <p>
       Environmental DNA (eDNA) is genetic material shed by organisms into their environment. 
@@ -79,9 +46,133 @@
     </p>
   </section>
 
+
+   <!-- Species card -->
+  <section class="species" id="species">
+  <h2>Explore Ocean Life</h2>
+
+  <div class="carousel-container">
+    <div class="carousel">
+
+      <div class="species-card">
+        <video autoplay muted loop playsinline class="card-bg">
+          <source src="videos/corals.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+          <h3>Deep Sea Corals</h3>
+          <div class="tags">
+            <span>Endozoicomonas</span>
+            <span>Vibrio</span>
+            <span>Nitrosopumilus</span>
+          </div>
+          <a href="corals.html" class="btn small">Explore More</a>
+        </div>
+      </div>
+
+      <div class="species-card">
+        <video autoplay muted loop playsinline class="card-bg">
+          <source src="videos/fishes.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+          <h3>Deep Sea Fishes</h3>
+          <div class="tags">
+            <span>Photobacterium</span>
+            <span>Vibrio</span>
+            <span>Shewanella</span>
+          </div>
+          <a href="fishes.html" class="btn small">Explore More</a>
+        </div>
+      </div>
+
+      <div class="species-card">
+        <video autoplay muted loop playsinline class="card-bg">
+          <source src="videos/cephalopods.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+          <h3>Cephalopods</h3>
+          <div class="tags">
+            <span>Vibrio fischeri</span>
+            <span>Photobacterium</span>
+            <span>Pseudoalteromonas</span>
+          </div>
+          <a href="cephalopods.html" class="btn small">Explore More</a>
+        </div>
+      </div>
+
+      <div class="species-card">
+        <video autoplay muted loop playsinline class="card-bg">
+          <source src="videos/crustaceans.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+          <h3>Crustaceans</h3>
+          <div class="tags">
+            <span>Vibrio spp.</span>
+            <span>Shewanella</span>
+            <span>Halomonas</span>
+          </div>
+          <a href="crustaceans.html" class="btn small">Explore More</a>
+        </div>
+      </div>
+
+      <div class="species-card">
+        <video autoplay muted loop playsinline class="card-bg">
+          <source src="videos/protists.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+          <h3>Deep-Sea Protists</h3>
+          <div class="tags">
+            <span>Symbiotic Alphaproteobacteria</span>
+            <span>Gammaproteobacteria</span>
+            <span>Thaumarchaeota</span>
+          </div>
+          <a href="protists.html" class="btn small">Explore More</a>
+        </div>
+      </div>
+
+      <div class="species-card">
+        <video autoplay muted loop playsinline class="card-bg">
+          <source src="videos/fungi.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+          <h3>Fungi</h3>
+          <div class="tags">
+            <span>Aspergillus sydowii</span>
+            <span>Penicillium spp</span>
+            <span>Candida spp</span>
+          </div>
+          <a href="fungi.html" class="btn small">Explore More</a>
+        </div>
+      </div>
+
+      <div class="species-card">
+        <video autoplay muted loop playsinline class="card-bg">
+          <source src="videos/invertebrates.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+          <h3>Invertebrates</h3>
+          <div class="tags">
+            <span>Vibrio spp.</span>
+            <span>Alteromonas</span>
+            <span>Pseudoalteromonas</span>
+          </div>
+          <a href="invertebrates.html" class="btn small">Explore More</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Arrows -->
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+  </div>
+</section>
+
+
+  </section>
+
   <!-- Footer -->
-  <footer class="footer">
-    <p>© 2025 DeepSea DNA Explorer | Developed by Romita Agarwal</p>
+  <footer class="footer" id="contact">
+    <p>© 2025 DeepSea DNA Explorer | Developed by Cyber Bots Team</p>
     <div class="footer-links">
       <a href="#">About</a> | 
       <a href="#">Terms</a> | 
@@ -89,5 +180,7 @@
       <a href="#">Contact</a>
     </div>
   </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

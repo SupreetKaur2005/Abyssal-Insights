@@ -1,9 +1,9 @@
-body {
+/* body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #0b1622;
   color: #fff;
-}
+} */
 
 .hero {
   position: relative;
@@ -47,7 +47,7 @@ body {
 
 
 /* Species Section */
-.species-info {
+/* .species-info {
   padding: 40px;
   text-align: center;
 }
@@ -65,7 +65,95 @@ body {
 .species-item:hover {
   transform: scale(1.05);
   background: #1a1a1a;
+} */
+
+
+body {
+  background-color: #0d1b2a; /* deep ocean blue */
+  color: #f1f1f1;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
+
+/* Section title */
+.species-info {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.species-info h2 {
+  margin-bottom: 40px;
+  font-size: 2.2rem;
+  color: #e0e0e0;
+}
+
+/* Card styling */
+.species-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1b263b; /* lighter than your old background */
+  margin: 30px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 1300px;
+   width: 95%;          /* ⬅️ Use most of the screen */
+  padding: 20px; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+
+.species-item:hover {
+  transform: scale(1.02);
+}
+
+/* Alternate layout */
+.species-item.reverse {
+  flex-direction: row-reverse;
+}
+
+.species-text {
+  flex: 1;
+  padding: 30px 40px;
+  text-align: left;
+}
+
+.species-text h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #f9d342; /* golden-yellow accent */
+}
+
+.species-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #e8e8e8;
+}
+
+.species-img {
+  flex: 1;
+}
+
+.species-img img {
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .species-item,
+  .species-item.reverse {
+    flex-direction: column;
+  }
+  
+  .species-text {
+    text-align: center;
+  }
+}
+
+
 
 /* Fun Facts */
 .fun-facts {

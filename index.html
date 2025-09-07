@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Marine Auth Page</title>
+  <!-- CSS ko connect karna zaroori hai -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ocean"></div>
+  
+  <div class="auth-container">
+    <div class="form-box">
+      <h2 id="form-title">Login</h2>
+      <form id="auth-form">
+        <input type="text" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <input type="text" id="full_name" placeholder="Full Name (Signup only)" style="display:none;">
+        <button type="submit">Submit</button>
+      </form>
+      <div class="toggle" onclick="toggleForm()">Don’t have an account? Signup</div>
+      <div id="message" class="message"></div>
+    </div>
+  </div>
+
+  <script>
+    let isLogin = true;
+    function toggleForm() {
+      isLogin = !isLogin;
+      document.getElementById("form-title").innerText = isLogin ? "Login" : "Signup";
+      document.getElementById("full_name").style.display = isLogin ? "none" : "block";
+      document.querySelector(".toggle").innerText = isLogin
+        ? "Don’t have an account? Signup"
+        : "Already have an account? Login";
+      document.getElementById("message").innerText = "";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login & Signup</title>
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="ocean">
+      <div class="bubble b1"></div>
+      <div class="bubble b2"></div>
+      <div class="bubble b3"></div>
+      <div class="bubble b4"></div>
+    </div>
+
+    <div class="auth-container">
+      <div class="card-wrap">
+        <div id="login-box" class="form-box">
+          <h2>Login</h2>
+          <form>
+            <div class="input-group">
+              <input type="email" placeholder=" " required>
+              <label>Email</label>
+            </div>
+            <div class="input-group">
+              <input type="password" placeholder=" " required>
+              <label>Password</label>
+            </div>
+            <button type="submit" class="btn-auth">Login</button>
+            <p class="switch-text">Don’t have an account? 
+              <a href="#" onclick="switchForm('signup')">Sign Up</a>
+            </p>
+          </form>
+        </div>
+
+        <div id="signup-box" class="form-box hidden">
+          <h2>Sign Up</h2>
+          <form>
+            <div class="input-group">
+              <input type="text" placeholder=" " required>
+              <label>Username</label>
+            </div>
+            <div class="input-group">
+              <input type="email" placeholder=" " required>
+              <label>Email</label>
+            </div>
+            <div class="input-group">
+              <input type="password" placeholder=" " required>
+              <label>Password</label>
+            </div>
+            <button type="submit" class="btn-auth">Sign Up</button>
+            <p class="switch-text">Already have an account? 
+              <a href="#" onclick="switchForm('login')">Login</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchForm(form) {
+      document.getElementById("login-box").classList.toggle("hidden", form !== "login");
+      document.getElementById("signup-box").classList.toggle("hidden", form !== "signup");
+    }
+  </script>
+</body>
+</html>

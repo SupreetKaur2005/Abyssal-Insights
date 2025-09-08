@@ -1,0 +1,158 @@
+/* Universal reset to remove default browser margins and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.auth-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d1b2a;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+}
+
+.ocean {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ocean .bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.2) 25%, rgba(0,234,255,0.3) 60%, rgba(0,234,255,0) 100%);
+  box-shadow: inset -15px -15px 40px rgba(255,255,255,0.4), /* Further increased reflection effect */
+              inset 12px 12px 30px rgba(0,0,0,0.4),
+              0 20px 60px rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px) saturate(170%); /* More blur and saturation for a more dramatic, glass-like effect */
+  opacity: 1; /* Fully opaque to maximize reflection */
+}
+
+/* reflective highlight */
+.ocean .bubble::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 60%;
+  height: 50%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,1), rgba(255,255,255,0) 70%); /* Strongest possible highlight */
+  filter: blur(5px);
+}
+
+/* soft glow rim */
+.ocean .bubble::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+}
+
+@keyframes floaty {
+  0%   { transform: translate3d(0, 0px, 0) }
+  50%  { transform: translate3d(10px, -20px, 0) }
+  100% { transform: translate3d(0, 0px, 0) }
+}
+
+.ocean .b1 { width: 240px; height: 240px; left: -5%; top: -5%; animation: floaty 12s ease-in-out infinite; }
+.ocean .b2 { width: 220px; height: 220px; right: -6%; bottom: -8%; animation: floaty 10s ease-in-out infinite 1.2s; }
+.ocean .b3 { width: 200px; height: 200px; left: 15%; bottom: 15%; animation: floaty 8s ease-in-out infinite 0.6s; }
+.ocean .b4 { width: 260px; height: 260px; right: 20%; top: 8%; animation: floaty 14s ease-in-out infinite 2s; }
+
+.auth-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.card-wrap {
+  width: 360px;
+  max-width: 90%;
+}
+
+.form-box {
+  background: rgba(12,23,34,0.9);
+  padding: 26px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  border: 1px solid rgba(0,234,255,0.06);
+}
+
+.hidden { display: none !important; }
+
+.form-box h2 {
+  margin-bottom: 14px;
+  color: #00eaff;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  border-radius: 8px;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.input-group label {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+  transition: 0.2s ease;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 0.78rem;
+  color: #00eaff;
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 12px;
+  border-radius: 28px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: linear-gradient(90deg, #00eaff, #00c2d1);
+  color: #062027;
+  font-size: 1rem;
+}
+
+.switch-text {
+  margin-top: 12px;
+  text-align: center;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+}
+
+.switch-text a {
+  color: #00eaff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.switch-text a:hover { text-decoration: underline; }

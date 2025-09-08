@@ -12,12 +12,26 @@ html { scroll-behavior: smooth; }
   backdrop-filter: blur(6px);
   animation: slideDown 1s ease;
 }
-.logo { font-size: 1.5rem; font-weight: bold; color: #00eaff; }
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+  border-radius: 6px; 
+}
 .nav-links { list-style: none; display: flex; gap: 2rem; }
 .nav-links a { text-decoration: none; color: #fff; font-weight: 500; transition: color 0.3s ease; }
 .nav-links a:hover { color: #00eaff; }
 
-/* Buttons */
+
 .btn {
   background: #00eaff; color: #0d1b2a; padding: 0.8rem 1.5rem;
   border-radius: 30px; font-weight: bold; text-decoration: none;
@@ -34,25 +48,7 @@ html { scroll-behavior: smooth; }
 .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
 .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
 
-/* Species */
-/* .species { padding: 6rem 2rem; background: #1b263b; text-align: center; }
-.species h2 { font-size: 2.5rem; color: #00eaff; margin-bottom: 2rem; }
-.species-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-.species-card {
-  position: relative; border-radius: 20px; overflow: hidden; height: 350px;
-  display: flex; align-items: flex-end; justify-content: center; cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4); opacity: 0; transform: translateY(50px);
-  transition: all 0.8s ease;
-}
-.species-card.show { opacity: 1; transform: translateY(0); }
-.card-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.5s ease; }
-.species-card:hover .card-bg { transform: scale(1.1); }
-.card-content { position: relative; z-index: 1; background: rgba(0,0,0,0.55); width: 100%; padding: 1.5rem; border-radius: 0 0 20px 20px; backdrop-filter: blur(5px); }
-.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0 1rem; }
-.tags span { background: rgba(255,255,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; transition: all 0.3s ease; }
-.tags span:hover { background: #00eaff; color: #0d1b2a; } */
 
-/* Carousel container */
 .carousel-container {
   position: relative;
   width: 100%;
@@ -62,7 +58,6 @@ html { scroll-behavior: smooth; }
   padding: 40px 0; /* more breathing room */
 }
 
-/* Carousel track */
 .carousel {
   display: flex;
   transition: transform 0.6s ease-in-out;

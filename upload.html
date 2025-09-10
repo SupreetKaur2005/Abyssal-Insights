@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Data</title>
+  <link rel="stylesheet" href="upload.css">
+</head>
+<body>
+
+<!-- Header -->
+<header class="navbar">
+<div class="logo">
+    <img src="images/abyssal-logo.jpg" alt="Abyssal Insights Logo">
+    <span>Abyssal Insights</span>
+  </div>    <nav>
+      <ul class="nav-links">
+        <li><a href="home-page.html">Home</a></li>
+        <!-- <li><a href="#species">Species</a></li> -->
+        <!-- <li><a href="#upload">Upload</a></li> -->
+        <!-- <li><a href="#info">About</a></li> -->
+        <!-- <li><a href="#contact">Contact</a></li> -->
+        <li><a href="signin.html" class="btn small">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<!-- Upload Section -->
+<section class="upload-section">
+  <h2>Contribute Your Data</h2>
+  <p>Help us expand our deep-sea knowledge by uploading your files. Accepted formats: <b>.pdf, .docx, .jpg, .png, .csv</b></p>
+
+  <form id="uploadForm">
+    <label for="fileInput" class="upload-box">
+      <input type="file" id="fileInput" name="file" hidden>
+      <span id="fileName">Click here to select a file</span>
+    </label>
+    <button type="submit" class="btn">Upload & Show Result</button>
+  </form>
+
+  <!-- Result area -->
+  <div id="uploadResult"></div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" id="contact">
+    <p>© 2025 Abyssal Insights | Developed by Cyber Bots Team</p>
+    <div class="footer-links">
+      <a href="#">About</a> | 
+      <a href="#">Terms</a> | 
+      <a href="#">Privacy</a> | 
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+<script src="upload.js"></script>
+</body>
+</html>

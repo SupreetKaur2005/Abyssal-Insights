@@ -1,0 +1,160 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #0b1622; /* same as homepage */
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #0b1622;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #00e6ff;
+}
+
+.btn.small {
+  background: #00e6ff;
+  color: #000;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn.small:hover {
+  background: #00bcd4;
+}
+
+/* Upload Section */
+.upload-section {
+  max-width: 800px;
+  margin: 80px auto;
+  text-align: center;
+  padding: 40px;
+  background: #111a28;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.upload-section h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #00e6ff;
+}
+
+.upload-section p {
+  margin-bottom: 30px;
+  color: #ccc;
+}
+
+.upload-box {
+  display: block;
+  border: 2px dashed #00e6ff;
+  padding: 40px;
+  border-radius: 15px;
+  cursor: pointer;
+  color: #aaa;
+  margin: 0 auto 25px;
+  width: 100%;
+  transition: background 0.3s, color 0.3s;
+}
+
+.upload-box:hover {
+  background: rgba(0,230,255,0.08);
+  color: #fff;
+}
+
+#fileName {
+  font-size: 1.1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: none;
+  background: #00e6ff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #00bcd4;
+}
+
+#uploadResult {
+  margin-top: 25px;
+  font-size: 1.1rem;
+  color: #00e6ff;
+}
+
+/* Footer */
+.footer {
+  background: #1b263b;
+  padding: 20px;
+  text-align: center;
+  color: #888;
+  margin-top: 80px;
+  border-top: 1px solid #1c2938;
+}
+
+.footer p {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #00e6ff;
+  text-decoration: none;
+  margin: 0 5px;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #00bcd4;
+}

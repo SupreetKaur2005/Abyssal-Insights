@@ -249,7 +249,7 @@ def train_model(model, train_loader, val_loader, num_epochs=50, patience=10):
     print("Starting supervised training...")
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5)
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'max', factor=0.5, patience=5, verbose=True)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'max', factor=0.5, patience=5)
     
     best_accuracy = 0.0
     epochs_no_improve = 0

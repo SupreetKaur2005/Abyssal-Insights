@@ -7,21 +7,27 @@
 
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background: #0b1622; /* same as homepage */
+  background: #0b1622; /* dark navy theme */
   color: #fff;
-  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Navbar */
 .navbar {
+  background: #0b1622;
+  padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 40px;
-  background: #0b1622;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 
 .logo {
@@ -41,7 +47,6 @@ body {
 .nav-links {
   list-style: none;
   display: flex;
-  align-items: center;
   gap: 25px;
 }
 
@@ -56,96 +61,119 @@ body {
   color: #00e6ff;
 }
 
-.btn.small {
-  background: #00e6ff;
-  color: #000;
-  padding: 8px 18px;
-  border-radius: 25px;
-  font-weight: bold;
-  transition: background 0.3s;
+/* Auth Section */
+.auth-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
 }
 
-.btn.small:hover {
-  background: #00bcd4;
-}
-
-/* Upload Section */
-.upload-section {
-  max-width: 800px;
-  margin: 80px auto;
-  text-align: center;
+.card-wrap {
+  background: rgba(17, 26, 40, 0.9); /* semi-transparent card */
   padding: 40px;
-  background: #111a28;
   border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-}
-
-.upload-section h2 {
-  font-size: 2rem;
-  margin-bottom: 15px;
-  color: #00e6ff;
-}
-
-.upload-section p {
-  margin-bottom: 30px;
-  color: #ccc;
-}
-
-.upload-box {
-  display: block;
-  border: 2px dashed #00e6ff;
-  padding: 40px;
-  border-radius: 15px;
-  cursor: pointer;
-  color: #aaa;
-  margin: 0 auto 25px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
   width: 100%;
-  transition: background 0.3s, color 0.3s;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
-.upload-box:hover {
-  background: rgba(0,230,255,0.08);
-  color: #fff;
+/* Form Box */
+.form-box {
+  display: block;
 }
 
-#fileName {
-  font-size: 1.1rem;
+.hidden {
+  display: none;
 }
 
-.btn {
-  display: inline-block;
-  padding: 12px 25px;
-  border-radius: 25px;
+.form-box h2 {
+  color: #00e6ff;
+  margin-bottom: 20px;
+}
+
+/* Input Groups */
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px;
   border: none;
+  outline: none;
+  background: #1c2938;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #aaa;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+/* Floating Label Effect */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 0.8rem;
+  color: #00e6ff;
+  background: #111a28;
+  padding: 0 6px;
+  border-radius: 5px;
+}
+
+/* Buttons */
+.btn-auth {
+  width: 100%;
+  padding: 12px;
   background: #00e6ff;
   color: #000;
   font-weight: bold;
+  border: none;
+  border-radius: 25px;
   cursor: pointer;
   transition: background 0.3s;
+  margin-top: 10px;
 }
 
-.btn:hover {
+.btn-auth:hover {
   background: #00bcd4;
 }
 
-#uploadResult {
-  margin-top: 25px;
-  font-size: 1.1rem;
+/* Switch text */
+.switch-text {
+  margin-top: 15px;
+  color: #bbb;
+}
+
+.switch-text a {
   color: #00e6ff;
+  text-decoration: none;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
 }
 
 /* Footer */
 .footer {
-  background: #1b263b;
-  padding: 20px;
+  background: #0b1622;
   text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
   color: #888;
-  margin-top: 80px;
-  border-top: 1px solid #1c2938;
-}
-
-.footer p {
-  margin-bottom: 10px;
 }
 
 .footer-links a {
@@ -157,4 +185,10 @@ body {
 
 .footer-links a:hover {
   color: #00bcd4;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

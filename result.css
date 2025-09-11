@@ -108,3 +108,20 @@ tr:hover {
   text-align: center;
   color: #888;
 }
+
+.result-visuals img {
+  display: block;
+  margin: 12px auto 0;
+  max-width: 900px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #0b1a26;
+}
+
+.visual-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 8px;
+}

@@ -1,71 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Analysis Results</title>
-  <link rel="stylesheet" href="result.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analysis Results | Abyssal Insights</title>
+  <link rel="stylesheet" href="result.css" />
 </head>
 <body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="images/abyssal-logo.jpg" alt="Abyssal Insights Logo"/>
+      <span>Abyssal Insights</span>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="home-page.html">Home</a></li>
+        <li><a href="upload.html">Upload</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<!-- Header -->
-<header class="navbar">
-  <div class="logo">
-    <img src="images/abyssal-logo.jpg" alt="Abyssal Insights Logo">
-    <span>Abyssal Insights</span>
-  </div>
-  <nav>
-    <ul class="nav-links">
-      <li><a href="home-page.html">Home</a></li>
-      <li><a href="upload.html">Upload</a></li>
-    </ul>
-  </nav>
-</header>
+  <section class="results-section">
+    <h2>Your eDNA Analysis Results</h2>
+    <p>Download the full CSV files, preview the first 10 rows, or view interactive plots below.</p>
 
-<!-- Results Section -->
-<section class="results-section">
-  <h2>Your eDNA Analysis Results</h2>
-  <p>Download the full CSV files or preview the first 10 rows below.</p>
+    <!-- Visuals: interactive HTML + PNG -->
+    <div class="result-visuals result-block" id="visualBlock" style="display:none;">
+      <h3>Cluster Plot</h3>
+      <div class="visual-actions">
+      <a href="interactive_edna_clusters(Unknown_Sequences).html" 
+        target="_blank" class="btn">
+        Open interactive 3D plot
+      </a>        
+      <a id="downloadImg" href="#" download class="btn" style="display:none;">⬇ Download Plot (PNG)</a>
+      </div>
+      <img id="clusterImg" src="" alt="Cluster 2D plot" style="display:none; margin-top:15px; max-width:100%; border-radius:8px; box-shadow: 0 6px 18px rgba(0,0,0,0.5);">
+    </div>
 
-  <!-- Known Sequences -->
-  <div class="result-block">
-    <h3>Known Sequences</h3>
-    <a href="known_sequences.csv" class="btn" download>⬇ Download Known CSV</a>
-    <table id="knownTable">
-      <thead>
-        <tr>
-          <th>Index</th>
-          <th>Sequence</th>
-          <th>Predicted Class</th>
-          <th>Confidence</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+    <!-- Known Sequences -->
+    <div class="result-block">
+      <h3>Known Sequences</h3>
+      <a href="known_sequences.csv" class="btn" download>⬇ Download Known CSV</a>
+      <table id="knownTable">
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Sequence</th>
+            <th>Predicted Class</th>
+            <th>Confidence</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-  <!-- Unknown Sequences -->
-  <div class="result-block">
-    <h3>Unknown Sequences</h3>
-    <a href="unknown_sequences.csv" class="btn" download>⬇ Download Unknown CSV</a>
-    <table id="unknownTable">
-      <thead>
-        <tr>
-          <th>Index</th>
-          <th>Sequence</th>
-          <th>Cluster</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-</section>
+    <!-- Unknown Sequences -->
+    <div class="result-block">
+      <h3>Unknown Sequences</h3>
+      <a href="unknown_sequences.csv" class="btn" download>⬇ Download Unknown CSV</a>
+      <table id="unknownTable">
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Sequence</th>
+            <th>Cluster</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
 
-<!-- Footer -->
-<footer class="footer">
-  <p>© 2025 Abyssal Insights | Developed by Cyber Bots Team</p>
-</footer>
+  <footer class="footer">
+    <p>© 2025 Abyssal Insights | Developed by Cyber Bots Team</p>
+  </footer>
 
-<script src="results.js"></script>
+  <script src="result.js"></script>
 </body>
 </html>

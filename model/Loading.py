@@ -1,7 +1,9 @@
+import os
 import torch
 import torch.nn as nn
 import numpy as np
-import joblib  # Add this import
+import joblib
+import csv  # Import CSV module
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
@@ -16,9 +18,13 @@ import io
 # --- 1. Load the Trained Model and Define the Feature Extractor ---
 def load_and_create_feature_extractor(model_path, input_size, num_classes):
     """
-    Loads full model (architecture + weights) and returns a feature extractor for clustering.
+    Loads full model (architecture + weights) and returns both the full model and feature extractor.
     This is for the EnhancedClassifier model architecture.
     """
+    # Check if model file exists
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model file not found at: {model_path}")
+    
     # Model definition matching the training code
     class EnhancedClassifier(nn.Module):
         def __init__(self, input_size, num_classes, hidden_sizes=[512, 256, 128]):
@@ -136,7 +142,7 @@ def load_reads_from_tar(tar_path, max_reads=10000, max_seq_len=500):
     return sequences
 
 # --- 4. Clustering, Biodiversity Estimation & Visualization ---
-def cluster_and_visualize_features(features, n_clusters=10, sequences=None):
+def cluster_and_visualize_features(features, n_clusters=10, sequences=None, title_suffix=""):
     """
     Clusters features, estimates biodiversity (number of clusters), and creates interactive visualization.
     """
@@ -152,23 +158,25 @@ def cluster_and_visualize_features(features, n_clusters=10, sequences=None):
     fig = px.scatter_3d(
         x=reduced[:, 0], y=reduced[:, 1], z=reduced[:, 2],
         color=cluster_labels.astype(str),
-        title=f"eDNA Sequence Clusters (K={n_clusters})",
+        title=f"eDNA Sequence Clusters {title_suffix} (K={n_clusters})",
         labels={"color": "Cluster"},
         hover_data={"Sequence": sequences} if sequences is not None else None
     )
-    pio.write_html(fig, "interactive_edna_clusters.html")
-    print("Interactive cluster plot saved to interactive_edna_clusters.html")
+    filename = f"interactive_edna_clusters{title_suffix.replace(' ', '_')}.html"
+    pio.write_html(fig, filename)
+    print(f"Interactive cluster plot saved to {filename}")
 
     # 2D plot for backup
     plt.figure(figsize=(10, 8))
     scatter = plt.scatter(reduced[:, 0], reduced[:, 1], c=cluster_labels, cmap='viridis', alpha=0.7)
     plt.colorbar(scatter, label='Cluster')
-    plt.title(f'eDNA Sequence Clusters (K={n_clusters})')
+    plt.title(f'eDNA Sequence Clusters {title_suffix} (K={n_clusters})')
     plt.xlabel('Principal Component 1')
     plt.ylabel('Principal Component 2')
-    plt.savefig('edna_clusters_2d.png', dpi=300)
+    filename = f"edna_clusters_2d{title_suffix.replace(' ', '_')}.png"
+    plt.savefig(filename, dpi=300)
     plt.close()
-    print("2D cluster plot saved to edna_clusters_2d.png")
+    print(f"2D cluster plot saved to {filename}")
 
     # Biodiversity estimation (number of clusters found)
     unique_clusters = np.unique(cluster_labels)
@@ -180,13 +188,28 @@ def cluster_and_visualize_features(features, n_clusters=10, sequences=None):
     
     return cluster_labels, reduced
 
-# --- 5. Pipeline Driver ---
+# --- 5. Save results to CSV ---
+def save_results_to_csv(filename, data, headers):
+    """
+    Save results to a CSV file
+    """
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(headers)
+        writer.writerows(data)
+    print(f"Results saved to {filename}")
+
+# --- 6. Pipeline Driver ---
 if __name__ == "__main__":
+    # Get the directory of the current script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    
     # Update these paths to match your files
-    MODEL_PATH = "best_model_epoch_2_acc_98.50.pth"  # Trained model from your supervised pipeline
-    TAR_PATH = "novel_data/sample_reads.tar"         # Raw eDNA reads file (tar format)
-    VECTORIZER_PATH = "dna_vectorizer.joblib"        # Saved vectorizer
-    SCALER_PATH = "dna_scaler.joblib"                # Saved scaler
+    MODEL_PATH = os.path.join(script_dir, "best_model_epoch_2_acc_98.50.pth")  # Trained model from your supervised pipeline
+    # TAR_PATH = os.path.join(script_dir, "novel_data", "sample_reads.tar")      # Raw eDNA reads file (tar format)
+    TAR_PATH = "mixed_test_data/mixed_sample_reads.tar"
+    VECTORIZER_PATH = os.path.join(script_dir, "dna_vectorizer.joblib")        # Saved vectorizer
+    SCALER_PATH = os.path.join(script_dir, "dna_scaler.joblib")                # Saved scaler
     
     # Parameters that match your training setup
     INPUT_SIZE = 4115        # Number of hybrid features (from your output: "Generated 4115 hybrid features")
@@ -194,17 +217,39 @@ if __name__ == "__main__":
     KMER_SIZE = 6            # k-mer size used in training
     N_CLUSTERS = 10          # Number of clusters to find (based on your analysis)
     MAX_READS = 5000         # Maximum number of reads to process
+    CONFIDENCE_THRESHOLD = 0.8  # Threshold for considering a prediction as "known"
+
+    # Check if required files exist
+    for file_path, description in [
+        (MODEL_PATH, "Model file"),
+        (TAR_PATH, "Tar file with sequences"),
+        (VECTORIZER_PATH, "Vectorizer file"),
+        (SCALER_PATH, "Scaler file")
+    ]:
+        if not os.path.exists(file_path):
+            print(f"Warning: {description} not found at: {file_path}")
 
     # Load the pre-fitted vectorizer and scaler
     print("Loading pre-fitted vectorizer and scaler...")
-    vectorizer = joblib.load(VECTORIZER_PATH)
-    scaler = joblib.load(SCALER_PATH)
+    try:
+        vectorizer = joblib.load(VECTORIZER_PATH)
+        scaler = joblib.load(SCALER_PATH)
+    except Exception as e:
+        print(f"Error loading vectorizer or scaler: {e}")
+        exit(1)
 
-    # Load feature extractor
+    # Load feature extractor and full model
     print("Loading model and creating feature extractor...")
-    feature_extractor, model = load_and_create_feature_extractor(
-        MODEL_PATH, INPUT_SIZE, NUM_CLASSES
-    )
+    try:
+        feature_extractor, model = load_and_create_feature_extractor(
+            MODEL_PATH, INPUT_SIZE, NUM_CLASSES
+        )
+    except FileNotFoundError as e:
+        print(e)
+        exit(1)
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        exit(1)
 
     # Load raw, unlabeled eDNA reads
     print("Loading sequences from tar file...")
@@ -217,15 +262,67 @@ if __name__ == "__main__":
     # Convert to tensor
     features_tensor = torch.tensor(hybrid_features, dtype=torch.float32)
     
-    # Feature extraction using the model
-    print("Extracting deep features from hybrid features...")
+    # Get predictions from the full model
+    print("Getting predictions from the supervised model...")
+    with torch.no_grad():
+        # Get class predictions and confidence scores
+        outputs = model(features_tensor)
+        probabilities = torch.softmax(outputs, dim=1)
+        confidence, predicted_classes = torch.max(probabilities, 1)
+    
+    # Convert to numpy arrays
+    confidence = confidence.numpy()
+    predicted_classes = predicted_classes.numpy()
+    
+    # Separate known and unknown sequences based on confidence threshold
+    known_indices = confidence >= CONFIDENCE_THRESHOLD
+    unknown_indices = confidence < CONFIDENCE_THRESHOLD
+    
+    known_sequences = [seq for i, seq in enumerate(sequences) if known_indices[i]]
+    unknown_sequences = [seq for i, seq in enumerate(sequences) if unknown_indices[i]]
+    
+    known_classes = predicted_classes[known_indices]
+    known_confidence = confidence[known_indices]
+    
+    print(f"Found {len(known_sequences)} known sequences (confidence >= {CONFIDENCE_THRESHOLD})")
+    print(f"Found {len(unknown_sequences)} unknown sequences (confidence < {CONFIDENCE_THRESHOLD})")
+    
+    # Save known sequences to CSV
+    known_data = []
+    for i, (seq, cls, conf) in enumerate(zip(known_sequences, known_classes, known_confidence)):
+        known_data.append([i+1, seq, cls, conf])
+    
+    save_results_to_csv(
+        "known_sequences.csv",
+        known_data,
+        ["Index", "Sequence", "Predicted_Class", "Confidence"]
+    )
+    
+    # Feature extraction using the model for unknown sequences
+    print("\nExtracting deep features for unknown sequences...")
+    unknown_features_tensor = features_tensor[unknown_indices]
+    
     with torch.no_grad():
         # Get features from the model (output of the penultimate layer)
-        deep_features = feature_extractor(features_tensor).numpy()
+        deep_features = feature_extractor(unknown_features_tensor).numpy()
     
-    # Clustering, biodiversity, and interactive visualization
-    cluster_labels, reduced = cluster_and_visualize_features(
-        deep_features, n_clusters=N_CLUSTERS, sequences=sequences
-    )
+    # Clustering, biodiversity, and interactive visualization for unknown sequences
+    if len(unknown_sequences) > 0:
+        cluster_labels, reduced = cluster_and_visualize_features(
+            deep_features, n_clusters=N_CLUSTERS, sequences=unknown_sequences, title_suffix="(Unknown Sequences)"
+        )
+        
+        # Save unknown sequences with cluster assignments to CSV
+        unknown_data = []
+        for i, (seq, cluster) in enumerate(zip(unknown_sequences, cluster_labels)):
+            unknown_data.append([i+1, seq, cluster])
+        
+        save_results_to_csv(
+            "unknown_sequences.csv",
+            unknown_data,
+            ["Index", "Sequence", "Cluster"]
+        )
+    else:
+        print("No unknown sequences to cluster.")
 
-    print("Pipeline complete. Explore your results in 'interactive_edna_clusters.html'.")
+    print("Pipeline complete. Results saved to CSV files.")

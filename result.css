@@ -125,3 +125,19 @@ tr:hover {
   justify-content: center;
   margin-top: 8px;
 }
+
+
+
+
+
+/* Fix table overflow */
+.result-block {
+  overflow-x: auto;   /* Add horizontal scrolling if table gets too wide */
+}
+
+/* Wrap long DNA sequences */
+table td {
+  word-break: break-all;   /* Break long text without spaces */
+  white-space: normal;     /* Allow wrapping */
+  max-width: 300px;        /* Optional: limit column width */
+}

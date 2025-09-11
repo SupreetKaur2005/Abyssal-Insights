@@ -14,6 +14,8 @@ from sklearn.preprocessing import StandardScaler
 from Bio import SeqIO
 import tarfile
 import io
+import sys
+
 
 # --- 1. Load the Trained Model and Define the Feature Extractor ---
 def load_and_create_feature_extractor(model_path, input_size, num_classes):
@@ -162,22 +164,36 @@ def cluster_and_visualize_features(features, n_clusters=10, sequences=None, titl
         labels={"color": "Cluster"},
         hover_data={"Sequence": sequences} if sequences is not None else None
     )
-    filename = f"interactive_edna_clusters{title_suffix.replace(' ', '_')}.html"
-    pio.write_html(fig, filename)
-    print(f"Interactive cluster plot saved to {filename}")
+    # filename = f"interactive_edna_clusters{title_suffix.replace(' ', '_')}.html"
+    # pio.write_html(fig, filename)
+    # print(f"Interactive cluster plot saved to {filename}")
+    #
+    # # 2D plot for backup
+    # plt.figure(figsize=(10, 8))
+    # scatter = plt.scatter(reduced[:, 0], reduced[:, 1], c=cluster_labels, cmap='viridis', alpha=0.7)
+    # plt.colorbar(scatter, label='Cluster')
+    # plt.title(f'eDNA Sequence Clusters {title_suffix} (K={n_clusters})')
+    # plt.xlabel('Principal Component 1')
+    # plt.ylabel('Principal Component 2')
+    # filename = f"edna_clusters_2d{title_suffix.replace(' ', '_')}.png"
+    # plt.savefig(filename, dpi=300)
+    # plt.close()
+    # print(f"2D cluster plot saved to {filename}")
+# create safe suffix (remove parentheses and replace spaces/dashes)
+    safe_suffix = title_suffix.strip()
+    safe_suffix = safe_suffix.replace(' ', '').replace('(', '').replace(')', '').replace('-', '')
 
-    # 2D plot for backup
-    plt.figure(figsize=(10, 8))
-    scatter = plt.scatter(reduced[:, 0], reduced[:, 1], c=cluster_labels, cmap='viridis', alpha=0.7)
-    plt.colorbar(scatter, label='Cluster')
-    plt.title(f'eDNA Sequence Clusters {title_suffix} (K={n_clusters})')
-    plt.xlabel('Principal Component 1')
-    plt.ylabel('Principal Component 2')
-    filename = f"edna_clusters_2d{title_suffix.replace(' ', '_')}.png"
-    plt.savefig(filename, dpi=300)
+    # File names
+    html_filename = f"interactive_edna_clusters_{safe_suffix}.html"
+    png_filename = f"edna_clusters_2d_{safe_suffix}.png"
+
+    # Save files
+    pio.write_html(fig, html_filename)
+    print(f"Interactive cluster plot saved to {html_filename}")
+
+    plt.savefig(png_filename, dpi=300)
     plt.close()
-    print(f"2D cluster plot saved to {filename}")
-
+    print(f"2D cluster plot saved to {png_filename}")
     # Biodiversity estimation (number of clusters found)
     unique_clusters = np.unique(cluster_labels)
     print(f"Estimated biodiversity (number of clusters): {len(unique_clusters)}")
@@ -207,7 +223,12 @@ if __name__ == "__main__":
     # Update these paths to match your files
     MODEL_PATH = os.path.join(script_dir, "best_model_epoch_2_acc_98.50.pth")  # Trained model from your supervised pipeline
     # TAR_PATH = os.path.join(script_dir, "novel_data", "sample_reads.tar")      # Raw eDNA reads file (tar format)
-    TAR_PATH = "mixed_test_data/mixed_sample_reads.tar"
+    # TAR_PATH = "mixed_test_data/mixed_sample_reads.tar"
+    # Default fallback (keeps backward compatibility)
+    DEFAULT_TAR = os.path.join(script_dir, "mixed_test_data", "mixed_sample_reads.tar")
+    # If server passes uploaded path as arg, use it; otherwise fall back to default.
+    TAR_PATH = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_TAR
+
     VECTORIZER_PATH = os.path.join(script_dir, "dna_vectorizer.joblib")        # Saved vectorizer
     SCALER_PATH = os.path.join(script_dir, "dna_scaler.joblib")                # Saved scaler
     

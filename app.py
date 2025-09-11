@@ -133,6 +133,10 @@ from routes.auth import router as auth_router
 from routes.data import router as data_router
 from typing import Optional
 import os
+from fastapi import FastAPI, Depends, Request, UploadFile, File
+from fastapi.responses import RedirectResponse
+import subprocess
+import pathlib
 
 # Create tables
 Base.metadata.create_all(bind=engine)
@@ -203,6 +207,49 @@ async def catch_all(path: str):
         return FileResponse(path)
     else:
         return {"error": "File not found"}
+#
+# @app.post("/process")
+# async def process_file(file: UploadFile = File(...)):
+#     # Save uploaded file
+#     upload_dir = pathlib.Path("uploads")
+#     upload_dir.mkdir(exist_ok=True)
+#     upload_path = upload_dir / file.filename
+#
+#     with open(upload_path, "wb") as f:
+#         f.write(await file.read())
+#
+#     # Run loading.py with uploaded path
+#     try:
+#         subprocess.run(["python", "model/loading.py", str(upload_path)], check=True)
+#     except subprocess.CalledProcessError as e:
+#         print("Pipeline failed:", e)
+#         return {"error": "Processing failed"}
+#
+#     # Redirect to results page
+#     return RedirectResponse(url="/results.html", status_code=303)
+@app.post("/process")
+async def process_file(file: UploadFile = File(...)):
+    # Save uploaded file
+    upload_dir = pathlib.Path("uploads")
+    upload_dir.mkdir(exist_ok=True)
+    upload_path = upload_dir / file.filename
+
+    with open(upload_path, "wb") as f:
+        f.write(await file.read())
+
+    # Build absolute path to loading.py
+    script_dir = pathlib.Path(__file__).parent.resolve()
+    loading_path = script_dir / "model" / "Loading.py"
+
+    # Run loading.py with uploaded file path
+    try:
+        subprocess.run(["python", str(loading_path), str(upload_path)], check=True)
+    except subprocess.CalledProcessError as e:
+        print("Pipeline failed:", e)
+        return {"error": "Processing failed"}
+
+    # Redirect to results page
+    return RedirectResponse(url="/result.html", status_code=303)
 
 if __name__ == "__main__":
     import uvicorn
